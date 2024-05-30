@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+void addTask(vector<string> &tasks) {
+    string task;
+    cout << "Enter the task description: ";
+    cin.ignore();
+    getline(cin, task);
+    tasks.push_back(task);
+    cout << "Task added successfully." << endl;
+}
+
+void viewTasks(const vector<string> &tasks) {
+    if (tasks.empty()) {
+        cout << "No tasks available." << endl;
+        return;
+    }
+    cout << "Your tasks:" << endl;
+    for (size_t i = 0; i < tasks.size(); ++i) {
+        cout << i + 1 << ". " << tasks[i] << endl;
+    }
+}
+
+void removeTask(vector<string> &tasks) {
+    size_t task_number;
+    cout << "Enter the task number to remove: ";
+    cin >> task_number;
+    if (task_number < 1 || task_number > tasks.size()) {
+        cout << "Invalid task number." << endl;
+        return;
+    }
+    tasks.erase(tasks.begin() + task_number - 1);
+    cout << "Task removed successfully." << endl;
+}
+
+int main() {
+    vector<string> tasks;
+    int choice;
+
+    while (true) {
+        cout << "\nTo-Do List Manager" << endl;
+        cout << "1. Add Task" << endl;
+        cout << "2. View Tasks" << endl;
+        cout << "3. Remove Task" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                removeTask(tasks);
+                break;
+            case 4:
+                cout << "Exiting the program." << endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
